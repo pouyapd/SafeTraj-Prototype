@@ -1,24 +1,24 @@
 import os
 import sys
 
+# Make sure project root is on sys.path so "import safetraj" works
 ROOT = os.path.dirname(os.path.dirname(__file__))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
-
 
 import streamlit as st
 
 from safetraj import SafeTrajEvaluator, SafeTrajConfig
 from safetraj import plot_trajectory, plot_feature_importance
 
-
+# ----- page setup -----
 st.set_page_config(page_title="SafeTraj-X", layout="wide")
 
 st.title("SafeTraj-X – Safety & OOD Explorer")
 
 st.write(
-    "This small demo shows how simple motion commands "
-    "map to predicted trajectories, OOD scores, and a combined risk estimate."
+    "This demo shows how simple motion commands map to predicted trajectories, "
+    "OOD scores, and a combined risk estimate."
 )
 
 # single evaluator instance (fixed seed => stable behaviour)
@@ -28,12 +28,25 @@ evaluator = SafeTrajEvaluator(config=config)
 # ----- sidebar inputs -----
 st.sidebar.header("Input parameters")
 
-orientation = st.sidebar.slider("Orientation (rad)", -3.14, 3.14, 0.0, 0.1)
-v_lin = st.sidebar.slider("Linear velocity (m/s)", -1.05, 2.88, 0.5, 0.05)
-v_rot = st.sidebar.slider("Rotational velocity (rad/s)", -1.99, 1.99, 0.2, 0.05)
+mode = st.sidebar.radio(
+    "Input mode",
+    ["Typical range", "Custom (no limits)"],
+)
+
+if mode == "Typical range":
+    # inputs restricted to the same range used for training data
+    orientation = st.sidebar.slider("Orientation (rad)", -3.14, 3.14, 0.0, 0.1)
+    v_lin = st.sidebar.slider("Linear velocity (m/s)", -1.05, 2.88, 0.5, 0.05)
+    v_rot = st.sidebar.slider("Rotational velocity (rad/s)", -1.99, 1.99, 0.2, 0.05)
+else:
+    # fully free numeric inputs (can go outside the training range)
+    orientation = st.sidebar.number_input("Orientation (rad)", value=0.0)
+    v_lin = st.sidebar.number_input("Linear velocity (m/s)", value=0.5)
+    v_rot = st.sidebar.number_input("Rotational velocity (rad/s)", value=0.2)
 
 run = st.sidebar.button("Evaluate")
 
+# ----- main logic -----
 if run:
     x = [orientation, v_lin, v_rot]
     res = evaluator.evaluate(x, return_traj=True)
@@ -44,6 +57,7 @@ if run:
             "orientation": orientation,
             "v_lin": v_lin,
             "v_rot": v_rot,
+            "mode": mode,
         }
     )
 
@@ -77,4 +91,4 @@ if run:
     st.subheader("Raw result (debug)")
     st.json(res)
 else:
-    st.info("Set the sliders in the sidebar and click **Evaluate**.")
+    st.info("Choose parameters in the sidebar and click **Evaluate**.")

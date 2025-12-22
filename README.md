@@ -21,6 +21,18 @@ SafeTraj-X provides a clear and modular way to explore:
 The goal is not high-fidelity simulation.  
 The goal is **clarity, modularity, and safety-awareness** — a clean foundation that can be extended for research, prototyping, or safety validation.
 
+## 🧪 Research-Style Summary
+
+This project investigates how simple motion commands can lead to unsafe or out-of-distribution behaviors in learned trajectory predictors.
+
+Rather than optimizing prediction accuracy, SafeTraj-X focuses on **model behavior analysis**, asking:
+- when a command becomes anomalous with respect to the training distribution,
+- how risk can be estimated from multiple uncertainty signals,
+- and which input factors contribute most to unsafe predictions.
+
+The framework is designed as a **controlled experimental environment** for studying robustness, OOD detection, and interpretability in safety-critical navigation systems.
+
+
 ## ✨ Features
 
 ### • Trajectory Prediction

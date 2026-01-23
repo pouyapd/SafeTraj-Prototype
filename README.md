@@ -68,6 +68,10 @@ A motion command far outside the training range, flagged with higher OOD scores 
 
 ![SafeTraj-X dashboard – high-risk](assets/dashboard_high_risk.png)
 
+## Additional module: TrajSafe-LLM
+A lightweight reporting module under `trajsafe_llm/` that produces rule-based safety labels and (optionally) local LLM explanations via Ollama, with a CLI and evaluation checks.
+
+
 ---
 
 ## 🖥 CLI Example

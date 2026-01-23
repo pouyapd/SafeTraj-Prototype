@@ -1,2 +1,13 @@
 trajsafe_llm/outputs/
 trajsafe_llm/__pycache__/
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Module caches
+trajsafe_llm/__pycache__/
+trajsafe_llm/src/__pycache__/
+
+# Generated outputs
+trajsafe_llm/outputs/

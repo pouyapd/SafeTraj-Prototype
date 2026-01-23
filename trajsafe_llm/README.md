@@ -19,6 +19,7 @@ This module bridges **deterministic safety rules** with **human-readable explana
 ---
 
 ## Quick start
+```
 
 From this folder:
 

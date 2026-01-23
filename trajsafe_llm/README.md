@@ -22,7 +22,6 @@ This module bridges **deterministic safety rules** with **human-readable explana
 
 From this folder:
 
-bash
 python cli.py --input data/demo_trajectories.csv --out outputs --model mistral:latest
 
 ## Outputs

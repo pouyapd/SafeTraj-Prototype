@@ -26,7 +26,6 @@ From this folder:
 ```bash
 python cli.py --input data/demo_trajectories.csv --out outputs --model mistral:latest
 
----
 ## Outputs
 
 When the CLI is executed, JSON safety reports are generated under the `outputs/` directory:

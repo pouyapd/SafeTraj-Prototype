@@ -1,76 +1,121 @@
-# SafeTraj-X
+# SafeTraj — Trajectory Behaviour Analysis Toolkit
 
-SafeTraj-X is a lightweight and modular framework for **trajectory prediction**, **out-of-distribution (OOD) detection**, and **risk estimation** in mobile robots and smart wheelchairs.
+SafeTraj is a lightweight and modular Python toolkit for analysing the behaviour of pretrained neural trajectory prediction models in autonomous mobility systems.
 
-Modern robotic systems must decide whether a motion command is **safe**, **unusual**, or **potentially dangerous** before moving.  
-This safety layer is essential for navigation, but it is often hidden inside large projects or spread across notebooks.
+This project focuses on trajectory-level behaviour analysis, risk estimation, and interpretability for smart wheelchairs and mobile robots.
 
-**SafeTraj-X makes this entire safety process simple, explicit, and reproducible.**
-## 🔍 Why This Project?
+It was developed as part of my MSc research in Artificial Intelligence at the University of Genoa, in collaboration with CNR-IEIIT within the EU Horizon Europe REXASIPRO project.
 
-Robots and autonomous mobility devices operate in unpredictable environments.  
-A small change in orientation or velocity can push the system into behaviors it was **not trained for**.
+---
 
-SafeTraj-X provides a clear and modular way to explore:
+# Why this project?
 
-- how a motion command translates into a trajectory  
-- whether the command is “in-distribution” or anomalous  
-- how risky the predicted behavior is  
-- which input contributed most to the risk  
+Learning-based motion predictors can behave differently depending on input conditions such as orientation and velocity.
 
-The goal is not high-fidelity simulation.  
-The goal is **clarity, modularity, and safety-awareness** — a clean foundation that can be extended for research, prototyping, or safety validation.
+Understanding when and how these models fail is essential for improving reliability in safety-critical systems.
 
-## 🧪 Research-Style Summary
+SafeTraj provides a simple and transparent environment to:
 
-This project investigates how simple motion commands can lead to unsafe or out-of-distribution behaviors in learned trajectory predictors.
+- analyse predicted trajectories
+- identify unstable behaviours
+- estimate trajectory-level risk
+- visualise model behaviour across input conditions
 
-Rather than optimizing prediction accuracy, SafeTraj-X focuses on **model behavior analysis**, asking:
-- when a command becomes anomalous with respect to the training distribution,
-- how risk can be estimated from multiple uncertainty signals,
-- and which input factors contribute most to unsafe predictions.
+The focus is on behaviour analysis, not on training new neural models.
 
-The framework is designed as a **controlled experimental environment** for studying robustness, OOD detection, and interpretability in safety-critical navigation systems.
+---
 
+# Research Focus
 
-## ✨ Features
+This toolkit investigates:
 
-### • Trajectory Prediction
-Predicts a simple kinematic trajectory `[x(t), y(t), θ(t)]` based on the input command.
+- trajectory stability under different motion commands
+- failure patterns in pretrained neural predictors
+- trajectory risk estimation using statistical and rule-based methods
+- interpretable analysis of model behaviour
 
-### • OOD Detection
-Two independent detectors:
-- Mahalanobis distance (empirical covariance)
-- Isolation Forest anomaly score
+The neural models analysed were pretrained by project partners.
 
-### • Risk Estimation
-Both OOD scores are normalized to `[0, 1]` and combined into:
-- `risk_score`
-- `risk_label` (low-risk, borderline, high-risk)
+SafeTraj only performs behaviour analysis and does not include proprietary model weights.
 
-### • Explainability
-Lightweight feature-importance showing which input contributed most to the risk.
+---
 
-### • Interactive Dashboard
-Streamlit sliders → real-time trajectory → real-time risk evaluation.
+# Features
 
-## 📷 Dashboard Preview
+## Trajectory Simulation
 
-### Low-risk example
+Predicts kinematic trajectories:
 
-A typical motion command inside the training range with a smooth trajectory and a **low-risk** label.
+[x(t), y(t), θ(t)]
 
-![SafeTraj-X dashboard – low-risk](assets/dashboard_low_risk.png)
+based on motion commands.
 
-### High-risk / OOD example
+---
 
-A motion command far outside the training range, flagged with higher OOD scores and a **high-risk** label.
+## Behaviour Analysis
 
-![SafeTraj-X dashboard – high-risk](assets/dashboard_high_risk.png)
+Evaluates trajectory stability using:
+
+- distance to goal
+- trajectory deviation
+- statistical thresholds
+
+---
+
+## Risk Estimation
+
+Computes:
+
+- risk score
+- risk category (low, medium, high)
+
+based on trajectory properties.
+
+---
+
+## Explainability
+
+Provides simple feature-importance analysis showing which inputs affect trajectory risk.
+
+---
+
+## Interactive Dashboard
+
+Streamlit dashboard allows:
+
+- real-time trajectory visualisation
+- interactive input control
+- live risk estimation
+
+---
+
+# Example
+
+Low-risk command:
+
+![Dashboard Low Risk](assets/dashboard_low_risk.png)
+
+High-risk command:
+
+![Dashboard High Risk](assets/dashboard_high_risk.png)
+
+---
+
+# Project Structure
+
+dashboard/
+safetraj/
+trajsafe_llm/
+results/
+assets/
 
 ## Additional module: TrajSafe-LLM
-A lightweight reporting module under [`trajsafe_llm/`](trajsafe_llm) that produces rule-based safety labels and (optionally) local LLM explanations via Ollama, with a CLI and evaluation checks.
 
+A lightweight reporting module under [`trajsafe_llm/`](trajsafe_llm) that produces **rule-based safety labels** and *(optionally)* **local LLM explanations** via Ollama.
+
+- CLI-friendly safety report generation  
+- Optional natural-language explanation as a post-analysis layer  
+- Designed for interpretability and debugging, not as a replacement for formal safety validation  
 
 ---
 
@@ -80,6 +125,7 @@ Example output from the command-line interface:
 
 ![SafeTraj-X CLI demo](assets/cli_example.png)
 
+---
 
 ## 📦 Installation
 
@@ -88,20 +134,3 @@ Clone the project:
 ```bash
 git clone https://github.com/pouyapd/SafeTraj-X.git
 cd SafeTraj-X
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-pip install -e .
-```
-
-Run the interactive dashboard:
-
-```bash
-streamlit run dashboard/app.py
-```
-
-
-

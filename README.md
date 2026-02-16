@@ -1,4 +1,4 @@
-# SafeTraj — Trajectory Behaviour Analysis Toolkit
+# Trajectory Behaviour Analysis Toolkit
 
 SafeTraj is a lightweight and modular Python toolkit for analysing the behaviour of pretrained neural trajectory prediction models in autonomous mobility systems.
 
@@ -132,5 +132,6 @@ Example output from the command-line interface:
 Clone the project:
 
 ```bash
-git clone https://github.com/pouyapd/SafeTraj-X.git
-cd SafeTraj-X
+git clone https://github.com/pouyapd/SafeTraj-Prototype.git
+cd SafeTraj-Prototype
+

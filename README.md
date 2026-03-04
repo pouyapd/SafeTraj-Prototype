@@ -1,137 +1,120 @@
-# Trajectory Behaviour Analysis Toolkit
+# SafeTraj-Prototype
 
-SafeTraj is a lightweight and modular Python toolkit for analysing the behaviour of pretrained neural trajectory prediction models in autonomous mobility systems.
+**Trajectory Behaviour Analysis Toolkit for Neural Motion Predictors**
 
-This project focuses on trajectory-level behaviour analysis, risk estimation, and interpretability for smart wheelchairs and mobile robots.
-
-It was developed as part of my MSc research in Artificial Intelligence at the University of Genoa, in collaboration with CNR-IEIIT within the EU Horizon Europe REXASIPRO project.
-
----
-
-# Why this project?
-
-Learning-based motion predictors can behave differently depending on input conditions such as orientation and velocity.
-
-Understanding when and how these models fail is essential for improving reliability in safety-critical systems.
-
-SafeTraj provides a simple and transparent environment to:
-
-- analyse predicted trajectories
-- identify unstable behaviours
-- estimate trajectory-level risk
-- visualise model behaviour across input conditions
-
-The focus is on behaviour analysis, not on training new neural models.
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red.svg)](https://streamlit.io/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
-# Research Focus
-
-This toolkit investigates:
-
-- trajectory stability under different motion commands
-- failure patterns in pretrained neural predictors
-- trajectory risk estimation using statistical and rule-based methods
-- interpretable analysis of model behaviour
-
-The neural models analysed were pretrained by project partners.
-
-SafeTraj only performs behaviour analysis and does not include proprietary model weights.
+**Author:** Pouya Bathaei Pourmand  
+**Affiliation:** MSc in Computer Engineering (AI) — University of Genoa / CNR-IEIIT, Italy  
+**Project:** [REXASI-PRO](https://rexasi-pro.spindoxlabs.com/) — Reliable & Explainable AI for Smart Mobility (EU Horizon Europe)
 
 ---
 
-# Features
+## Overview
 
-## Trajectory Simulation
+SafeTraj is a lightweight and modular Python toolkit for analysing the behaviour of pretrained neural trajectory prediction models in autonomous mobility systems (smart wheelchairs, mobile robots).
 
-Predicts kinematic trajectories:
+It was developed alongside my MSc thesis research at the University of Genoa, in collaboration with CNR-IEIIT within the EU Horizon Europe REXASI-PRO project.
 
-[x(t), y(t), θ(t)]
-
-based on motion commands.
+The focus is on **behaviour analysis, not model training** — the neural models analysed were pretrained by project partners. SafeTraj only performs trajectory-level evaluation and does not include proprietary model weights.
 
 ---
 
-## Behaviour Analysis
+## Why This Project?
 
-Evaluates trajectory stability using:
+Learning-based motion predictors can behave very differently depending on input conditions such as initial orientation and velocity commands. Understanding *when and how* these models fail is essential for improving reliability in safety-critical systems.
 
-- distance to goal
-- trajectory deviation
-- statistical thresholds
-
----
-
-## Risk Estimation
-
-Computes:
-
-- risk score
-- risk category (low, medium, high)
-
-based on trajectory properties.
+SafeTraj provides a transparent environment to:
+- Analyse predicted trajectories and identify unstable behaviours
+- Estimate trajectory-level risk scores
+- Visualise model behaviour across different input conditions
+- Generate interpretable explanations of failure patterns
 
 ---
 
-## Explainability
+## Features
 
-Provides simple feature-importance analysis showing which inputs affect trajectory risk.
+### Trajectory Analysis
+Evaluates predicted kinematic trajectories `[x(t), y(t), θ(t)]` using:
+- Distance to goal
+- Trajectory deviation and curvature
+- Statistical thresholds derived from training data
 
----
+### Risk Estimation
+Computes per-trajectory:
+- Risk score (continuous)
+- Risk category: Low / Medium / High
 
-## Interactive Dashboard
+### Explainability
+Feature-importance analysis showing which input commands (orientation, velocity) most affect trajectory risk — supporting interpretable model comparison.
 
-Streamlit dashboard allows:
+### Interactive Dashboard
+Streamlit dashboard for real-time exploration:
+- Interactive input controls (φ, v, ω)
+- Live trajectory visualisation
+- Live risk estimation and category display
 
-- real-time trajectory visualisation
-- interactive input control
-- live risk estimation
+**Low-risk command:**
 
----
+![Dashboard Low Risk](https://raw.githubusercontent.com/pouyapd/SafeTraj-Prototype/main/assets/dashboard_low_risk.png)
 
-# Example
+**High-risk command:**
 
-Low-risk command:
+![Dashboard High Risk](https://raw.githubusercontent.com/pouyapd/SafeTraj-Prototype/main/assets/dashboard_high_risk.png)
 
-![Dashboard Low Risk](assets/dashboard_low_risk.png)
+### TrajSafe-LLM Module
+A lightweight reporting module under `trajsafe_llm/` that produces rule-based safety labels and optional natural-language explanations via a local LLM (Ollama).
 
-High-risk command:
-
-![Dashboard High Risk](assets/dashboard_high_risk.png)
-
----
-
-# Project Structure
-
-dashboard/
-safetraj/
-trajsafe_llm/
-results/
-assets/
-
-## Additional module: TrajSafe-LLM
-
-A lightweight reporting module under [`trajsafe_llm/`](trajsafe_llm) that produces **rule-based safety labels** and *(optionally)* **local LLM explanations** via Ollama.
-
-- CLI-friendly safety report generation  
-- Optional natural-language explanation as a post-analysis layer  
-- Designed for interpretability and debugging, not as a replacement for formal safety validation  
+- CLI-friendly safety report generation
+- Optional LLM explanation as a post-analysis layer
+- Designed for interpretability and debugging, not as a replacement for formal safety validation
 
 ---
 
-## 🖥 CLI Example
+## Project Structure
 
-Example output from the command-line interface:
-
-![SafeTraj-X CLI demo](assets/cli_example.png)
+```
+SafeTraj-Prototype/
+├── safetraj/           # Core analysis and risk estimation modules
+├── dashboard/          # Streamlit interactive dashboard
+├── trajsafe_llm/       # LLM-based safety reporting module
+├── examples/           # Example scripts and usage demos
+├── tests/              # Unit tests
+├── assets/             # Dashboard screenshots
+└── requirements.txt
+```
 
 ---
 
-## 📦 Installation
-
-Clone the project:
+## Installation
 
 ```bash
 git clone https://github.com/pouyapd/SafeTraj-Prototype.git
 cd SafeTraj-Prototype
+pip install -r requirements.txt
+```
 
+### Run the Dashboard
+```bash
+streamlit run dashboard/app.py
+```
+
+### Run the CLI Safety Report
+```bash
+python -m trajsafe_llm.report --input examples/sample_trajectory.csv
+```
+
+---
+
+## Related Projects
+
+- [SafeTraj-Experiments](https://github.com/pouyapd/SafeTraj-Experiments) — Full thesis experimental results: input sensitivity analysis, goal difficulty maps, and model comparison across DNN-LNA architectures
+- [SafeNav-RL](https://github.com/pouyapd/SafeNav-RL) — RL-based navigation agent extending this analysis work toward safety-constrained policy learning
+
+---
+
+*Developed as part of MSc thesis research at the University of Genoa, in collaboration with CNR-IEIIT within the EU Horizon Europe REXASI-PRO project.*

@@ -18,7 +18,9 @@
 
 SafeTraj is a lightweight and modular Python toolkit for analysing the behaviour of pretrained neural trajectory prediction models in autonomous mobility systems (smart wheelchairs, mobile robots).
 
-It was developed alongside my MSc thesis research at the University of Genoa, in collaboration with CNR-IEIIT within the EU Horizon Europe REXASI-PRO project.
+It was developed alongside my MSc thesis research at the University 
+of Genoa as a personal open-source tool, inspired by trajectory 
+analysis work conducted within the EU Horizon Europe REXASI-PRO project.
 
 The focus is on **behaviour analysis, not model training** — the neural models analysed were pretrained by project partners. SafeTraj only performs trajectory-level evaluation and does not include proprietary model weights.
 

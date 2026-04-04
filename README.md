@@ -126,7 +126,7 @@ A REST API is available for programmatic access to trajectory risk scoring.
 ### Live API
 🔗 [safetraj-api.onrender.com/docs](https://safetraj-api.onrender.com/docs)
 
-> **Note:** Hosted on a free tier — first request may take ~30 seconds to wake up.
+> **Note:** Hosted on a free tier — first request may take ~50 seconds to wake up.
 
 ### Interactive docs
 Once the API is running, visit:

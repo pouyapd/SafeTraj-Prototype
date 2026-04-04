@@ -12,9 +12,9 @@ from safetraj import SafeTrajEvaluator, SafeTrajConfig
 from safetraj import plot_trajectory, plot_feature_importance
 
 # ----- page setup -----
-st.set_page_config(page_title="SafeTraj-X", layout="wide")
+st.set_page_config(page_title="SafeTraj", layout="wide")
 
-st.title("SafeTraj-X – Safety & OOD Explorer")
+st.title("SafeTraj – Trajectory Safety Explorer")
 
 st.write(
     "This demo shows how simple motion commands map to predicted trajectories, "

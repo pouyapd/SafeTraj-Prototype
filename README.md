@@ -10,7 +10,7 @@
 ---
 
 **Author:** Pouya Bathaei Pourmand  
-**Affiliation:** MSc in Computer Engineering (AI) — University of Genoa / CNR-IEIIT, Italy  
+**Affiliation:** MSc in Computer Engineering (AI) — University of Genoa, Italy  
 **Project:** [REXASI-PRO](https://rexasi-pro.spindoxlabs.com/) — Reliable & Explainable AI for Smart Mobility (EU Horizon Europe)
 
 ---
@@ -19,9 +19,7 @@
 
 SafeTraj is a lightweight and modular Python toolkit for analysing the behaviour of pretrained neural trajectory prediction models in autonomous mobility systems (smart wheelchairs, mobile robots).
 
-It was developed alongside my MSc thesis research at the University 
-of Genoa as a personal open-source tool, inspired by trajectory 
-analysis work conducted within the EU Horizon Europe REXASI-PRO project.
+It was developed alongside my MSc thesis research at the University of Genoa as a personal open-source tool, inspired by trajectory analysis work conducted within the EU Horizon Europe REXASI-PRO project.
 
 The focus is on **behaviour analysis, not model training** — the neural models analysed were pretrained by project partners. SafeTraj only performs trajectory-level evaluation and does not include proprietary model weights.
 
@@ -82,6 +80,8 @@ A lightweight reporting module under `trajsafe_llm/` that produces rule-based sa
 
 ```
 SafeTraj-Prototype/
+├── api/                # FastAPI REST endpoint
+│   └── main.py
 ├── safetraj/           # Core analysis and risk estimation modules
 ├── dashboard/          # Streamlit interactive dashboard
 ├── trajsafe_llm/       # LLM-based safety reporting module
@@ -106,9 +106,49 @@ pip install -r requirements.txt
 streamlit run dashboard/app.py
 ```
 
+### Run the API
+```bash
+uvicorn api.main:app --reload
+```
+
 ### Run the CLI Safety Report
 ```bash
 python -m trajsafe_llm.report --input examples/sample_trajectory.csv
+```
+
+---
+
+## API
+
+A REST API is available for programmatic access to trajectory risk scoring.
+
+### Interactive docs
+Once the API is running, visit:
+```
+http://127.0.0.1:8000/docs
+```
+
+### Example request
+```bash
+curl -X POST http://127.0.0.1:8000/evaluate \
+  -H "Content-Type: application/json" \
+  -d '{"orientation": 0.0, "v_lin": 0.5, "v_rot": 0.2}'
+```
+
+### Example response
+```json
+{
+  "risk_label": "in-distribution & low-risk",
+  "risk_score": 0.6523,
+  "mahalanobis_score": 1.1579,
+  "isolation_forest_score": -0.1063,
+  "feature_importance": {
+    "orientation": 0.0,
+    "v_lin": 0.714,
+    "v_rot": 0.286
+  },
+  "trajectory_length": 20
+}
 ```
 
 ---
@@ -120,4 +160,4 @@ python -m trajsafe_llm.report --input examples/sample_trajectory.csv
 
 ---
 
-*Developed as part of MSc thesis research at the University of Genoa, in collaboration with CNR-IEIIT within the EU Horizon Europe REXASI-PRO project.*
+*Developed as part of MSc thesis research at the University of Genoa, inspired by work conducted within the EU Horizon Europe REXASI-PRO project.*

@@ -6,6 +6,8 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red.svg)](https://streamlit.io/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Live Demo](https://img.shields.io/badge/Live-Demo-FF4B4B?logo=streamlit)](https://safetraj-prototype-auhavyacsp7udguqdsezhm.streamlit.app/)
+### Live API
+🔗 [safetraj-api.onrender.com/docs](https://safetraj-api.onrender.com/docs)
 
 ---
 

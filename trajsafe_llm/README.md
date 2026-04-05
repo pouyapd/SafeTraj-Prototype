@@ -1,11 +1,13 @@
-# TrajSafe-LLM (SafeTraj-X module)
+# TrajSafe-LLM
 
-This module generates **trajectory safety reports** using a practical design:
+> Part of [SafeTraj-Prototype](https://github.com/pouyapd/SafeTraj-Prototype) — 
+> Trajectory Behaviour Analysis Toolkit
 
-- A **rule-based** risk label (deterministic and auditable)
-- An optional **local LLM explanation layer** via Ollama (only for `UNSAFE/UNCERTAIN`)
-- A simple **CLI** entry point
-- A small **evaluation script** to check consistency between rules and explanations
+This module generates trajectory safety reports using a practical design:
+- A rule-based risk label (deterministic and auditable)
+- An optional local LLM explanation layer via Ollama (only for `UNSAFE/UNCERTAIN`)
+- A simple CLI entry point
+- A small evaluation script to check consistency between rules and explanations
 
 The LLM is used only to explain decisions — it is not the decision maker.
 

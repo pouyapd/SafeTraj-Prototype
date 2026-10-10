@@ -1,13 +1,13 @@
-trajsafe_llm/outputs/
-trajsafe_llm/__pycache__/
 # Python cache
 __pycache__/
 *.pyc
 *.pyo
-
-# Module caches
-trajsafe_llm/__pycache__/
-trajsafe_llm/src/__pycache__/
+.pytest_cache/
 
 # Generated outputs
+outputs/
+examples/output/
 trajsafe_llm/outputs/
+
+# Browser automation artifacts
+.playwright-mcp/

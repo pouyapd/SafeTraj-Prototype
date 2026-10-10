@@ -1,6 +1,10 @@
-numpy
-matplotlib
-scikit-learn
-streamlit
-fastapi
-uvicorn
+numpy>=1.24
+pandas>=2.0
+matplotlib>=3.7
+scikit-learn>=1.3
+fastapi>=0.110
+uvicorn>=0.27
+pydantic>=2.0
+streamlit>=1.50
+altair>=5.0
+requests>=2.28

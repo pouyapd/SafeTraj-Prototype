@@ -1,0 +1,5 @@
+IF orientation > 1.76 and v_lin > 1.69 and v_rot > -0.68 THEN failure (47 samples, 91% failures)
+IF orientation <= -1.88 and v_lin > 1.90 and v_rot <= 0.79 THEN failure (46 samples, 96% failures)
+IF orientation <= -1.88 and 1.69 < v_lin <= 1.90 and v_rot <= 0.79 THEN failure (12 samples, 58% failures)
+
+train accuracy 0.941; 5-fold CV 0.921 +/- 0.014; majority baseline 0.858

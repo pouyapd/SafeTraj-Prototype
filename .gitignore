@@ -4,10 +4,12 @@ __pycache__/
 *.pyo
 .pytest_cache/
 
-# Generated outputs
+# Generated outputs (README commands write here)
 outputs/
+results/
 examples/output/
 trajsafe_llm/outputs/
+/trajectory.png
 
 # Browser automation artifacts
 .playwright-mcp/

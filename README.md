@@ -164,7 +164,7 @@ ev = SafeTrajEvaluator(predictor=my_predictor, reference_data=X_train)
 | POST | `/compare` | two commands, same goal |
 | POST | `/report` | deterministic text report |
 
-Inputs are validated: out-of-range commands, non-finite numbers, trajectories with fewer than two points or non-increasing time return HTTP 422 with a message. The hosted instance (Render free tier) needs about a minute to wake up and serves whatever version was last deployed from `main`.
+Inputs are validated: out-of-range commands, non-finite numbers, trajectories with fewer than two points or non-increasing time return HTTP 422 with a message. The hosted instance (Render free tier) needs about a minute to wake up and serves whatever version was last deployed from `main`; `GET /` reports that version. **When checked on 2026-10-11 it still ran version 1.0.0**, which has only `/` and `/evaluate`, so the other routes above are not available there until it is redeployed. The hosted Streamlit demo could not be checked: from the network used for the check, every `*.streamlit.app` address (including Streamlit's own apps) returned HTTP 403, so its state is unverified.
 
 ## Tests
 
@@ -201,7 +201,7 @@ SafeTraj-Prototype/
 - The built-in predictors are physics stand-ins. Conclusions about a real model require running its own predictions through the toolkit.
 - The default novelty reference set is synthetic and uniform; with it, novelty mostly measures closeness to the edges of the operational box.
 - Rule thresholds are hand-chosen heuristics; they have not been validated against real collisions or user studies.
-- The optional LLM path was tested with mocked responses and with an unavailable server (fallback); no real model output is included here.
+- The optional LLM path was tested only with mocked responses and with an unavailable server (fallback). It has not been run against a live Ollama server, and no real model output is included here. To test it: install [Ollama](https://ollama.com) and start it (`ollama serve` or the desktop app; it listens on `localhost:11434`), run `ollama pull mistral`, then run `python -m safetraj evaluate --orientation 2.9 --v 2.4 --omega 0 --llm mistral:latest`. The note after the report says whether the model's text passed the consistency check or the template was used; if an HTTP proxy is configured, `localhost` must be excluded from it (`NO_PROXY=localhost`).
 - Nothing in this repository has been tested on a robot or wheelchair.
 
 ## Related projects

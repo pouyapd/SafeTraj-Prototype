@@ -158,7 +158,7 @@ ev = SafeTrajEvaluator(predictor=my_predictor, reference_data=X_train)
 
 ## REST API
 
-Version 2.0.0, started locally with `uvicorn api.main:app`. Interactive documentation is at `/docs`.
+Version 2.0.0. Start it locally with `uvicorn api.main:app` (interactive documentation at `/docs`), or use the hosted instance: [safetraj-api.onrender.com/docs](https://safetraj-api.onrender.com/docs) (Render free tier, about a minute to wake up).
 
 | Method | Path | Purpose |
 |---|---|---|
@@ -207,7 +207,7 @@ Out-of-range commands, non-finite numbers, trajectories with fewer than two poin
 | Component | Status | How it was checked |
 |---|---|---|
 | Local library, CLI, API, dashboard (v2.0.0) | **verified** | 46 tests, locally and in CI, exercise every route; the API was also started with `uvicorn` and `/`, `/health`, `/config` and `/evaluate` were called; the dashboard runs headless in a test |
-| Hosted API on Render ([`/docs`](https://safetraj-api.onrender.com/docs)) | **still version 1.0.0** | On 2026-10-12, `GET /` reported `"version": "1.0.0"`; `/health` and `/config` return 404. The free instance serves whatever was last deployed and needs about a minute to wake up. It is not updated until a redeploy from `main` is confirmed. |
+| Hosted API on Render ([`/docs`](https://safetraj-api.onrender.com/docs)) | **version 2.0.0, verified** | Redeployed automatically from `main` after the version 2 merge. On 2026-10-12, `GET /` reported `"version": "2.0.0"`, `/health` and `/config` answered, the OpenAPI schema listed all eight routes, and `POST /evaluate` and `/compare` returned the same values as the local service; invalid input got HTTP 422. The free instance needs about a minute to wake up. |
 | Hosted Streamlit demo ([link](https://safetraj-prototype-auhavyacsp7udguqdsezhm.streamlit.app/)) | **not publicly viewable; unverified** | On 2026-10-12 an anonymous request was redirected to Streamlit's sign-in page (`share.streamlit.io/-/auth/app`), so the app currently needs a Streamlit login to view. Whether it works after signing in was not checked. (On 2026-10-11 the same network got HTTP 403 for every `*.streamlit.app` address, an access restriction rather than an app failure.) |
 | Optional LLM phrasing with Ollama | **not tested live** | Tested only with mocked responses and with an unavailable server (the template is then used). |
 

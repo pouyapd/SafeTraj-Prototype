@@ -1,35 +1,33 @@
 """
-Minimal example for running SafeTrajEvaluator from the command line.
+Minimal example: evaluate one command and show the trajectory.
+
+    python examples/demo_basic.py
 """
 import os
 import sys
 
-# Add project root to sys.path so that "import safetraj" works
-ROOT = os.path.dirname(os.path.dirname(__file__))
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-from safetraj import SafeTrajEvaluator, SafeTrajConfig, plot_trajectory, plot_feature_importance
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # noqa: E402
+
+from safetraj import SafeTrajConfig, SafeTrajEvaluator, plot_trajectory  # noqa: E402
+from safetraj.report import template_report  # noqa: E402
 
 
 def main() -> None:
-    config = SafeTrajConfig(seed=42)
-    evaluator = SafeTrajEvaluator(config=config)
+    evaluator = SafeTrajEvaluator(SafeTrajConfig(seed=42))
+    x = [0.5, 1.2, 0.3]  # [orientation (rad), v_lin (m/s), v_rot (rad/s)]
+    res = evaluator.evaluate(x, return_traj=True, goal=(1.0, 0.0))
 
-    x = [0.5, 1.2, 0.3]  # [orientation, v_lin, v_rot]
-    res = evaluator.evaluate(x, return_traj=True)
+    print("Final distance to goal:", round(res["metrics"]["d_final"], 3), "m")
+    print("Goal outcome:", res["metrics"]["outcome_soft"])
+    print("Rule checks:", res["checks"]["label"], res["checks"]["triggered"])
+    print("Input novelty:", res["novelty"]["label"], f"(score {res['novelty']['score']:.2f})")
+    print(template_report(res))
 
-    print("Input:", res["input"])
-    print("Risk label:", res["risk_label"])
-    print("Risk score:", res["risk_score"])
-    print("Mahalanobis:", res["mahalanobis_score"])
-    print("IsolationForest:", res["isolation_forest_score"])
-    print("Feature importance:", res["feature_importance"])
-
-    fig_traj = plot_trajectory(res["trajectory"])
-    fig_imp = plot_feature_importance(res["feature_importance"])
-
+    plot_trajectory(res["trajectory"], result=res)
     plt.show()
 
 

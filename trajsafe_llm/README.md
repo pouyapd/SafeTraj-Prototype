@@ -1,50 +1,27 @@
-# TrajSafe-LLM
+# TrajSafe-LLM (now part of `safetraj`)
 
-> Part of [SafeTraj-Prototype](https://github.com/pouyapd/SafeTraj-Prototype) — 
-> Trajectory Behaviour Analysis Toolkit
+> Part of [SafeTraj-Prototype](../README.md).
 
-This module generates trajectory safety reports using a practical design:
-- A rule-based risk label (deterministic and auditable)
-- An optional local LLM explanation layer via Ollama (only for `UNSAFE/UNCERTAIN`)
-- A simple CLI entry point
-- A small evaluation script to check consistency between rules and explanations
+Version 1 of this folder held its own feature extraction, rules and Ollama client.
+In version 2 that code lives in the `safetraj` package so the CLI, REST API and
+dashboard share one implementation:
 
-The LLM is used only to explain decisions — it is not the decision maker.
+| Version 1 file | Version 2 location |
+|---|---|
+| `src/features.py` | `safetraj/metrics.py` |
+| `src/rules.py` | `safetraj/rules.py` (labels PASS / REVIEW / FAIL) |
+| `src/llm_ollama.py`, `eval/consistency_check.py` | `safetraj/llm.py` |
+| `prompts/safety_analyst.txt` | `safetraj/prompts/safety_analyst.txt` |
 
----
+The LLM only rephrases the rule result. Its answer is used only if it passes a
+consistency check (same label, every reason tied to a fired rule, no numbers);
+otherwise, or when Ollama is not running, the deterministic template report is
+used. The LLM is never asked for trajectories with label PASS.
 
-## What problem does this solve?
+```bash
+# from the repository root
+python trajsafe_llm/cli.py --input trajsafe_llm/data/demo_trajectories.csv --out outputs
+python trajsafe_llm/cli.py --input trajsafe_llm/data/demo_trajectories.csv --out outputs --model mistral:latest
+```
 
-In safety-critical navigation, a risk label alone is often not enough for debugging or audit.
-This module bridges **deterministic safety rules** with **human-readable explanations**, without delegating safety decisions to an LLM.
-
----
-
-## Quick start
-
-From this folder:
-
-python cli.py --input data/demo_trajectories.csv --out outputs --model mistral:latest
-
-## Outputs
-
-When the CLI is executed, JSON safety reports are generated under the `outputs/` directory:
-
-- `outputs/report_traj_<id>.json`
-- `outputs/summary.json`
-
-These files are generated automatically and are not tracked by git.
-
-
-## Example output (UNSAFE)
-
-```json
-{
-  "label": "UNSAFE",
-  "confidence": "high",
-  "reasons": [
-    "Low progress towards the goal [low_progress]",
-    "Heading error remains substantial far from goal [bad_heading_far_from_goal]"
-  ]
-}
-
+Outputs: `results.csv`, `results.json`, `report.md` and figures in `--out`.

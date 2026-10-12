@@ -15,7 +15,6 @@ import sys
 from pathlib import Path
 from typing import List, Optional
 
-import numpy as np
 
 
 def _goal(values: Optional[List[float]]):

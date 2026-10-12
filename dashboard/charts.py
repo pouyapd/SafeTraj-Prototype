@@ -19,8 +19,6 @@ def _circle(center: Sequence[float], r: float, label: str, n: int = 80) -> pd.Da
 def _square_domain(frames: List[pd.DataFrame], pad: float = 0.4):
     allx = pd.concat([f["x"] for f in frames])
     ally = pd.concat([f["y"] for f in frames])
-    lo = min(allx.min(), ally.min()) - pad
-    hi = max(allx.max(), ally.max()) + pad
     cx, cy = (allx.min() + allx.max()) / 2, (ally.min() + ally.max()) / 2
     half = max(allx.max() - allx.min(), ally.max() - ally.min()) / 2 + pad
     return [cx - half, cx + half], [cy - half, cy + half]

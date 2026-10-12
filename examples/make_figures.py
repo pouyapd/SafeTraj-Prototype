@@ -14,7 +14,6 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
 
 from safetraj import SafeTrajConfig, SafeTrajEvaluator, load_trajectories, results_to_frame  # noqa: E402
 from safetraj.analysis import fit_failure_tree, risk_map, run_sweep, sample_commands  # noqa: E402

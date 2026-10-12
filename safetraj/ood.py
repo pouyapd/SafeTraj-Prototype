@@ -15,7 +15,7 @@ about 5 % of reference inputs are "borderline" or "novel" by construction
 """
 
 from dataclasses import dataclass
-from typing import Dict, Optional, Sequence
+from typing import Dict, Sequence
 
 import numpy as np
 from sklearn.covariance import EmpiricalCovariance

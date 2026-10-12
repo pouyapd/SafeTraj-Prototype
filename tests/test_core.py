@@ -3,7 +3,6 @@ test_core.py — trajectory validation, metrics, predictors, novelty scores and 
 """
 
 import numpy as np
-import pandas as pd
 import pytest
 
 from safetraj import (ConstantCommandPredictor, DummyTrajectoryPredictor, GoalSeekingPredictor, SafeTrajConfig,

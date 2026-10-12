@@ -5,7 +5,6 @@ All numbers come from safetraj.SafeTrajEvaluator, the same code used by the CLI
 and the REST API.
 """
 
-import io
 import json
 import os
 import sys
@@ -14,7 +13,6 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-import numpy as np  # noqa: E402
 import pandas as pd  # noqa: E402
 import streamlit as st  # noqa: E402
 

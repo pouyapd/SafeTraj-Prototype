@@ -10,7 +10,6 @@ Outputs go to examples/output/ (not tracked by git).
 """
 
 import json
-import os
 import sys
 from pathlib import Path
 
